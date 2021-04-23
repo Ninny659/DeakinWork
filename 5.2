@@ -1,0 +1,54 @@
+from tkinter import *
+import tkinter.font
+from gpiozero import LED
+import RPi.GPIO
+RPi.GPIO.setmode(RPi.GPIO.BCM)
+
+blue = LED(14)
+red = LED(15)
+yellow = LED(18)
+
+win = Tk()
+win.title("LEDToggler")
+
+myFont = tkinter.font.Font(family = 'helvetica', size = 12, weight = "bold")
+
+def ledTogglerBlue():
+    if blue.is_lit:
+        blue.off()
+        ledButtonBlue["text"] = "Turn LED Blue on"
+    else:
+        blue.on()
+        ledButtonBlue["text"] = "Turn LED Blue off"
+        
+def ledTogglerRed():
+    if red.is_lit:
+        red.off()
+        ledButtonRed["text"] = "Turn LED Red on"
+    else:
+        red.on()
+        ledButtonRed["text"] = "Turn LED Red off"
+
+def ledTogglerYellow():
+    if yellow.is_lit:
+        yellow.off()
+        ledButtonYellow["text"] = "Turn LED Yellow on"
+    else:
+        yellow.on()
+        ledButtonYellow["text"] = "Turn LED Yellow off"
+        
+def close():
+    RPi.GPIO.cleanup()
+    win.destroy()
+
+ledButtonBlue = Button(win, text = 'Turn LED Blue On', font = myFont, command = ledTogglerBlue, bg = 'blue', height = 1, width = 24)
+ledButtonBlue.grid(row = 0, column=1)
+
+ledButtonRed = Button(win, text = 'Turn LED Red on', font = myFont, command = ledTogglerRed, bg = 'red', height = 1, width = 24)
+ledButtonRed.grid(row = 1, column=1)
+
+ledButtonYellow = Button(win, text = 'Turn LED Yellow on', font = myFont, command = ledTogglerYellow, bg = 'yellow', height = 1, width = 24)
+ledButtonYellow.grid(row = 2, column=1)
+
+Close = Button(win, text = 'Close', font = myFont, command = close, bg = 'orange', height = 1, width = 24)
+Close.grid(row = 3, column=1)
