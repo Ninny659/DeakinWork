@@ -1,0 +1,21 @@
+#define PIR_PIN D3 
+#define between_Trigger 2000 
+
+void setup() { 
+    Serial.begin(9600);	
+   pinMode(PIR_PIN, INPUT); 
+} 
+
+void loop() {
+    
+   if (digitalRead(PIR_PIN) == HIGH) { 
+       Particle.publish("MOTION", "MOTION_DETECTED"); 
+       delay(20000);
+   } 
+   else 
+   {
+       Particle.publish("MOTION", "MOTION_FALSE"); 
+       delay(20000);
+   }
+   
+}
